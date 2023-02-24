@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	width: 100%;
+	height: 100%;
+}
+
+#header, #footer, #contents{
+	width:80%;
+	margin: 10px auto;
+	border: 2px solid gray;
+	text-align: center;
+}
+
+#header, #footer{
+	height: 100px;			/*나중에 고쳐 쓰기*/ 
+	line-height: 100px;
+}
+
+#contents{
+	height: 400px;
+	line-height: 50px;
+	
+}
+
+#left,#right{
+	width: 50%;
+	height: 400px;
+}
+
+#left{
+	float: left;
+	border-right: 2px solid gray;
+	
+}
+
+#right{
+	float: right;
+	
+}
+
+#footer{
+	clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

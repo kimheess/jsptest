@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title>requestForm.html</title>
+
+
+<script>
+  	 document.cookie = 'test=OK';
+</script>
+   
+</head>
+
+<body>
+
+	<h1>request form</h1>
+	<hr />
+	
+	<form method="POST" action="requestResult.jsp">
+	<fieldset>
+		<legend>request form</legend>
+		<label for="name">이름 </label>
+		<input type="text" name="name" id="name" /><br />
+		
+		[성별]
+		<label for="male">남자 </label>
+		<input type="radio" name="gender" id="male" value="male" />
+		<label for="female">여자 </label>
+		<input type="radio" name="gender" id="female" value="female" /><br />
+		
+		<label for="job">직업</label>
+		<select name="job" id="job">
+			<option>무직</option>		
+			<option>회사원</option>		
+			<option>전문직</option>		
+			<option>학생</option>		
+		</select><br />
+		
+		[관심분야]
+		<label for="favorite1">정치</label>
+		<input type="checkbox" name="favorite" id="favorite1" value="정치" />
+		<label for="favorite2">경제</label>
+		<input type="checkbox" name="favorite" id="favorite2" value="경제" />
+		<label for="favorite3">사회</label>
+		<input type="checkbox" name="favorite" id="favorite3" value="사회" />
+		<label for="favorite4">문화</label>
+		<input type="checkbox" name="favorite" id="favorite4" value="문화" />
+		
+	</fieldset><br />
+	
+	<input type="submit" value="제출" /><input type="reset" value="초기화" />
+	</form>
+
+</body>
+</html>
