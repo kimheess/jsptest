@@ -3,6 +3,15 @@
 %>
 
 <%
+	/*
+	selProduct.jsp 예제의 보완 사항
+	1. 로그인 한 사용자만 이용할 수 있다.
+	2. 로그인 하지 않는 사용자의 접근은 로그인 페이지로 리다이렉팅 한다.
+	3. 로그아웃 기능 추가
+	*/
+	
+
+	
 	String script = "";	
 
 	if(request.getMethod().equals("POST")){

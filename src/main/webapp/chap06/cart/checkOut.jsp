@@ -3,6 +3,16 @@
 %>
 
 <%
+
+	/*
+	checkOut.jsp 예제의 보완 사항
+	1. 로그인 한 사용자만 이용할 수 있다.
+	2. 로그인 하지 않는 사용자의 접근은 로그인 페이지로 리다이렉팅 한다.
+	3. 장바구니 비우기 기능 
+	4. 상품 구매 페이지로 이동
+	*/	
+
+
 	ArrayList<String> list = (ArrayList<String>)session.getAttribute("productList");
 	String products = "";
 	if(list == null){
