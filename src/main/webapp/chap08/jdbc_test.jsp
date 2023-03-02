@@ -18,7 +18,7 @@
 			Class.forName(jdbc_driver);
 			conn = DriverManager.getConnection(jdbc_url, user, pwd);
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -34,7 +34,7 @@
 				pstmt.executeUpdate();
 				
 			}
-			catch (SQLException e) {
+			catch (Exception e) {
 				e.printStackTrace();
 			}		
 		      finally {
@@ -63,7 +63,7 @@
 			}
 			
 		}
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			try{
@@ -72,7 +72,7 @@
 				}
 			}
 		
-		catch (SQLException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
