@@ -1,9 +1,28 @@
 <%@ page  contentType="text/html; charset=UTF-8"
-		  import="java.sql.*"
+		  import="chap08.*, java.util.*"
+%>
+<%
+if(request.getMethod().equals("POST")){
+	request.setCharacterEncoding("UTF-8");
+}
 %>
 
+<jsp:useBean id="dao" class="chap08.JdbcTestDAO" scope="session" />
+<jsp:useBean id="testDO" class="chap08.JdbcTestDO" scope="page" />
+<jsp:setProperty name="testDO" property="*" />
+
 <%
-	// 자바 빈즈와 액션을 이용하여 동일한 기능을 구현하는 코드를 작성하세요.
+	if(request.getMethod().equals("POST")){
+		
+		dao.insertJdbcTest(testDO);
+	}
+
+	ArrayList<JdbcTestDO> list = dao.selectAllJdbcTest();
+	String result = "";
+	
+	for(JdbcTestDO tdo : list){
+		result += "<li>" + tdo.getUsername() + " | " + tdo.getEmail() + "</li>";
+	}
 %>
 
 <!DOCTYPE html>
@@ -11,12 +30,12 @@
 <html>
 <head>
    <meta charset="UTF-8">
-   <title>jdbc_test.jsp</title>
+   <title>jdbc_test2.jsp</title>
 </head>
 
 <body>
 	
-	<h1>JDBC Test</h1>
+	<h1>JDBC Test V2</h1>
 	<hr />
 	
 	<form method="POST">
@@ -36,7 +55,7 @@
 	<h3>등록 목록</h3>
 	
 	<ol>
-		<%=list %>
+		<%= result %>
 	</ol>
 </body>
 </html>
