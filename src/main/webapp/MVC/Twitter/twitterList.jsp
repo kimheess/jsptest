@@ -5,35 +5,33 @@
 <%
 if(request.getMethod().equals("POST")){
 	request.setCharacterEncoding("UTF-8");
+}	
 
-}
 %>
 
-<jsp:useBean id="twitterDAO" calss="mvc.twitter.TwitterDAO" scope="session" />
-<jsp:useBean id="twitterDO" calss="mvc.twitter.TwitterDAO"  />
+<jsp:useBean id="twitterDAO" class="mvc.twitter.TwitterDAO" scope="session" />
+<jsp:useBean id="twitterDO" class="mvc.twitter.TwitterDO" scope="page" />
 <jsp:setProperty name="twitterDO" property="message" />
 
 <%
-String command = request.getParameter("command");	
+	String command = request.getParameter("command");
 
-	if(request.getMethod().equals("POST") && command != null && command.equals("logout")){
+	if(command != null && command.equals("logout")){ // -->로그아웃은 화면을 보여주지 않는다 
 		session.invalidate();
 		response.sendRedirect("twitterLogin.jsp");
-		
 	}
-		else {
-			if(request.getMethod().equals("POST") && command != null && command.equals("twitterInsert")){
-				twitterDO.setId((String)session.getAttribute("id"));
-				twitterDAO.insertTwitter(twitterDO);
-			}
-			
-			
-		ArrayList<TwitterDO> list = twitterDAO.getAllTwitter();
-		String result = "";
-	
-		for(TwitterDO tDO : list){
-			result += "<li>" + tDO.getId() + " ::: " + tDO.getMessage() + " ::: " + tDO.getDate() + "</li>";
+	else{
+		if(command != null && command.equals("twitterInsert")){
+			twitterDO.setId((String)session.getAttribute("id"));
+			twitterDAO.insertTwitter(twitterDO);
 		}
+
+		String result = "";
+	 	ArrayList<TwitterDO> list = twitterDAO.getAllTwitter();
+	 	
+	 	for(TwitterDO tDO : list){
+	 		result += "<li>" + tDO.getId() + " ::: " + tDO.getMessage() + " ::: " + tDO.getCreateDate() + "</li>";
+	 	}
 %>
 
 <!DOCTYPE html>
@@ -41,7 +39,7 @@ String command = request.getParameter("command");
 <html>
 <head>
    <meta charset="UTF-8">
-   <title>Insert title here</title>
+   <title>twitterList.jsp</title>
 </head>
 
 <body>
@@ -58,9 +56,9 @@ String command = request.getParameter("command");
 		</fieldset>
 	</form>
 	
-	<h3>트위터 리스트 / <</h3>
+	<h3>트위터 리스트 </h3>
 	<ul>
-		 <%= result %>
+		<%= result %>
 	</ul>
 	
 	<hr />
@@ -74,5 +72,5 @@ String command = request.getParameter("command");
 </html>
 
 <%
-		}
+	}
 %>

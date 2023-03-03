@@ -1,22 +1,23 @@
-<%@ page  contentType="text/html; charset=UTF-8"
+<%@ page  contentType="text/html; charset=UTF-8"	
 		  import="mvc.twitter.*"
 %>
 
-<jsp:useBean id="twitterDAO" class="mvc.twitter.TwitterDAO" />
-<jsp:useBean id="loginDO" class="mvc.twitter.TwitterLoginDO" />
+<jsp:useBean id="twitterDAO" class="mvc.twitter.TwitterDAO" scope="page" />
+<jsp:useBean id="loginDO" class="mvc.twitter.TwitterLoginDO" scope="page"/>
 <jsp:setProperty name="loginDO" property="*" />
 
 <%
 	if(request.getMethod().equals("POST")){
-		TwitterLoginDO result = twitterDAO.getLoginDO(loginDO);
-		
-		if(result != null){
-			session.setAttribute("id", result.getId());	
-			session.setAttribute("name", result.getName());	
-			pageContext.forward("twitterList.jsp");
+		TwitterLoginDO result = twitterDAO.checkLogin(loginDO);
+		if(result != null) { 			//--> null이 아닐때 (로그인에 성공 했을떄)
+			session.setAttribute("id",result.getId());
+			session.setAttribute("name",result.getName());
+			
 			response.sendRedirect("twitterList.jsp");
 		}
 	}
+
+
 %>
 
 <!DOCTYPE html>

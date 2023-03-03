@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class TwitterDAO {
-	
 	private Connection conn = null;
 	private Statement stmt = null;
 	private PreparedStatement pstmt = null;
@@ -26,9 +25,9 @@ public class TwitterDAO {
 		}
 	}
 	
-	public TwitterLoginDO  getLoginDO(TwitterLoginDO loginDO) {
+	public TwitterLoginDO checkLogin(TwitterLoginDO loginDO) {
 		TwitterLoginDO result = null;
-		sql = "select * from twitter_login where id = ? and passwd = ?";
+		this.sql = "select * from twitter_login where id = ? and passwd = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -43,87 +42,81 @@ public class TwitterDAO {
 				result.setName(rs.getString("name"));
 			}
 		}
-		catch(Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if(pstmt.isClosed()) {
-					pstmt.close();
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
+	          try {
+	             if(!pstmt.isClosed()) {
+	                pstmt.close();
+	             }
+	          }
+	          catch (Exception e) {
+	             e.printStackTrace();
+	          }
+	       }
 		
 		return result;
 	}
 	
 	public ArrayList<TwitterDO> getAllTwitter() {
 		ArrayList<TwitterDO> list = new ArrayList<TwitterDO>();
-		TwitterDO twitterDO = null;
-		sql =  "select twitter.id || '@' || name as id_name, message, " +
-				"to_char(create_date, 'YYYY/MM/DD HH24:MI:SS') as cdatedtime" +
-				"from twitter inner join twitter_login" +
-				"  on twitter.id = twitter_login.id orbay by no";
+		TwitterDO tDO = null;
+		this.sql = "select twitter.id || '@' || name as id_name, message, to_char(create_date, 'YYYY/MM/DD HH24:MI:SS') as cdatedtime from twitter inner join twitter_login on twitter.id = twitter_login.id order by no";
 		
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()) {
-				twitterDO = new TwitterDO();
-				twitterDO.setId(rs.getString("id_name"));
-				twitterDO.setMessage(rs.getString("message"));
-				twitterDO.setDate(rs.getString("cdatedtime"));
-				list.add(twitterDO);
+				tDO = new TwitterDO();
+				tDO.setId(rs.getString("id_name"));
+				tDO.setMessage(rs.getString("message"));
+				tDO.setCreateDate(rs.getString("cdatedtime"));
+				list.add(tDO);
 			}
 		}
-		
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		finally {
-		try {
-			if(stmt.isClosed()) {
-				stmt.close();
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+	          try {
+	             if(!stmt.isClosed()) {
+	                stmt.close();
+	             }
+	          }
+	          catch (Exception e) {
+	             e.printStackTrace();
+	          }
+	       }
+		
+		return list;
 	}
-			return list;
-}
 	
-	public int insrtTwitter(TwitterDO twitterDO) {
+	public int insertTwitter(TwitterDO tDO) {
 		int rowCount = 0;
-		sql = "insert into twitter (no,id,message) "
-				+ "values(twitter_seq.nextval, ? , ?)";
+		sql = "insert into twitter (no, id, message) values(twitter_seq.nextval, ?, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, twitterDO.getId());
-			pstmt.setString(1, twitterDO.getMessage());
+			pstmt.setString(1,tDO.getId());
+			pstmt.setString(2,tDO.getMessage());
 			rowCount = pstmt.executeUpdate();
 		}
-		catch(Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if(pstmt.isClosed()) {
-					pstmt.close();
-				}
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
+	          try {
+	             if(!pstmt.isClosed()) {
+	                pstmt.close();
+	             }
+	          }
+	          catch (Exception e) {
+	             e.printStackTrace();
+	          }
+	       }
+		
 		
 		return rowCount;
 	}
