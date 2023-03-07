@@ -39,4 +39,6 @@
 	<servlet-name>configEx</servlet-name>
 	<url-pattern>/chap06/configEx</url-pattern>
 	</servlet-mapping>
+	
+	
 </web-app>
