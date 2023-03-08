@@ -40,5 +40,7 @@
 	<url-pattern>/chap06/configEx</url-pattern>
 	</servlet-mapping>
 	
-	
+	<listener>
+		<listener-class>chap11.InitialMember</listener-class>
+	</listener>
 </web-app>
